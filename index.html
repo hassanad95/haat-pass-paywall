@@ -224,7 +224,10 @@
     var s = T.plans[selected];
     $("stag").textContent = s.tag || ""; $("stag").hidden = !s.tag;
     $("sprice").textContent = s.per; $("sbill").textContent = s.bill;
-    $("cta").href = "haat://haat.delivery?type=market&marketId=" + STORE_ID + "&itemId=" + PLAN_IDS[selected];
+    var dl = "haat://haat.delivery?type=market&marketId=" + STORE_ID + "&itemId=" + PLAN_IDS[selected];
+    // AppsFlyer OneLink (template 3ap7): https universal/app link, the same route the apps already resolve for Braze/AppsFlyer links.
+    // Needs the banner to open OUTSIDE the app (system browser), because the in-app WebViews do not route links.
+    $("cta").href = "https://haat.onelink.me/3ap7?af_dp=" + encodeURIComponent(dl) + "&af_force_deeplink=true&deep_link_value=" + encodeURIComponent(dl) + "&pid=haat_pass_paywall&c=paywall_" + selected;
   }
   $("plans").addEventListener("click", function (e) {
     var b = e.target.closest(".plan"); if (!b) return;
@@ -254,14 +257,6 @@
   var ua = navigator.userAgent, inWebView = /; wv\)/.test(ua) || (/iPhone|iPad|iPod/.test(ua) && !/Safari\//.test(ua));
   function dismiss() { if (inWebView) location.href = "redirect?status=close"; else if (history.length > 1) history.back(); else window.close(); }
   $("later").addEventListener("click", dismiss);
-  // CTA: the apps' WebViews do not route haat:// (Android would replace the page with an error, iOS ignores it). Inside a WebView fire it from a
-  // hidden iframe so the paywall stays put; once the apps forward haat:// / haat.delivery links to the deeplink handler this opens the plan.
-  $("cta").addEventListener("click", function (e) {
-    if (!inWebView) return;
-    e.preventDefault();
-    var f = document.createElement("iframe"); f.hidden = true; f.src = $("cta").href; document.body.appendChild(f);
-    setTimeout(function () { f.remove(); }, 1500);
-  });
 </script>
 </body>
 </html>

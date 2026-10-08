@@ -1,0 +1,9 @@
+<!DOCTYPE html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<title>HAAT Pass deeplink tests</title>
+<body style="font:16px system-ui;padding:16px;line-height:2.2">
+<h3>Tap each; note which opens the HAAT app on the right plan (store 5584, staging IDs)</h3>
+<p>A. custom scheme: <a href="haat://haat.delivery?type=market&marketId=5584&itemId=844361">3 months</a> · <a href="haat://haat.delivery?type=market&marketId=5584&itemId=844360">1 month</a> · <a href="haat://haat.delivery?type=market&marketId=5584&itemId=844363">1 year</a></p>
+<p>B. https universal/app link: <a href="https://haat.delivery?type=market&marketId=5584&itemId=844361">3 months</a></p>
+<p>C. Android intent: <a href="intent://haat.delivery?type=market&marketId=5584&itemId=844361#Intent;scheme=haat;package=com.haat.client;end">3 months</a></p>
+<p>D. Paywall: <a href="./?lang=en">open paywall</a></p>
+<p id="e"></p><script>e.textContent="UA: "+navigator.userAgent+" | webview="+(/; wv\)/.test(navigator.userAgent)||(/iPhone|iPad|iPod/.test(navigator.userAgent)&&!/Safari\//.test(navigator.userAgent)))</script>
